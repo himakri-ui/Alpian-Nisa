@@ -68,13 +68,25 @@
       };
     </script>
 
-    <!-- Custom Style Sheet -->
+    <!-- Custom Style Sheet (Optimized Animations) -->
     <style>
       body {
         background-color: #fcfbf9;
         color: #1e293b;
         font-family: "Montserrat", sans-serif;
         overflow-x: hidden;
+      }
+
+      /* Transitions Smooth & Cubic Bezier */
+      * {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
+      .smooth-fade {
+        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
+                    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        will-change: opacity, transform;
       }
 
       .wave-container {
@@ -103,48 +115,49 @@
       }
 
       .animate-wave-1 {
-        animation: waveMoveFast 10s linear infinite;
+        animation: waveMoveFast 18s linear infinite;
       }
 
       .animate-wave-2 {
-        animation: waveMoveSlow 20s linear infinite;
-        opacity: 0.7;
+        animation: waveMoveSlow 28s linear infinite;
+        opacity: 0.6;
       }
 
       @keyframes kumoFloatLeft {
-        0% { transform: translateX(-10%) translateY(0); }
-        50% { transform: translateX(5%) translateY(-10px); }
-        100% { transform: translateX(-10%) translateY(0); }
+        0% { transform: translateX(-10%) translateY(0); opacity: 0.2; }
+        50% { transform: translateX(5%) translateY(-10px); opacity: 0.35; }
+        100% { transform: translateX(-10%) translateY(0); opacity: 0.2; }
       }
 
       @keyframes kumoFloatRight {
-        0% { transform: translateX(10%) translateY(0); }
-        50% { transform: translateX(-5%) translateY(-15px); }
-        100% { transform: translateX(10%) translateY(0); }
+        0% { transform: translateX(10%) translateY(0); opacity: 0.2; }
+        50% { transform: translateX(-5%) translateY(-15px); opacity: 0.35; }
+        100% { transform: translateX(10%) translateY(0); opacity: 0.2; }
       }
 
       .animate-kumo-left {
-        animation: kumoFloatLeft 22s ease-in-out infinite;
+        animation: kumoFloatLeft 30s ease-in-out infinite;
       }
 
       .animate-kumo-right {
-        animation: kumoFloatRight 26s ease-in-out infinite;
+        animation: kumoFloatRight 35s ease-in-out infinite;
       }
 
       .glass-luxury {
         background: rgba(255, 255, 255, 0.88);
-        backdrop-filter: blur(14px);
-        -webkit-backdrop-filter: blur(14px);
+        backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(16px);
         border: 1px solid rgba(212, 175, 55, 0.35);
-        box-shadow: 0 20px 40px rgba(2, 132, 199, 0.08),
-          0 6px 20px rgba(212, 175, 55, 0.12);
+        box-shadow: 0 20px 40px rgba(2, 132, 199, 0.06),
+          0 6px 20px rgba(212, 175, 55, 0.1);
       }
 
       .glass-wanted {
         background: linear-gradient(145deg, #fffdfa 0%, #fef8eb 100%);
         border: 2px solid #d4af37;
-        box-shadow: 0 15px 35px rgba(13, 92, 58, 0.12),
-          inset 0 0 15px rgba(212, 175, 55, 0.15);
+        box-shadow: 0 15px 35px rgba(13, 92, 58, 0.1),
+          inset 0 0 15px rgba(212, 175, 55, 0.12);
+        transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
       }
 
       .gold-gradient-text {
@@ -166,12 +179,13 @@
       }
 
       .animate-logpose {
-        animation: logPoseSpin 30s linear infinite;
+        animation: logPoseSpin 40s linear infinite;
       }
 
       .slash-btn {
         position: relative;
         overflow: hidden;
+        transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
       }
 
       .slash-btn::after {
@@ -188,7 +202,7 @@
           transparent
         );
         transform: rotate(30deg);
-        transition: all 0.6s ease;
+        transition: all 0.8s ease;
       }
 
       .slash-btn:hover::after {
@@ -221,7 +235,7 @@
       id="music-toggle"
       onclick="toggleMusic()"
       aria-label="Toggle Music"
-      class="fixed bottom-6 right-6 z-50 bg-white/90 border-2 border-champagne text-zoro-emerald w-12 h-12 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-300 hidden backdrop-blur-md"
+      class="fixed bottom-6 right-6 z-50 bg-white/90 border-2 border-champagne text-zoro-emerald w-12 h-12 rounded-full flex items-center justify-center shadow-2xl hover:scale-110 transition-all duration-500 hidden backdrop-blur-md"
     >
       <i
         id="music-icon"
@@ -232,19 +246,19 @@
     <!-- COVER / SPLASH SCREEN -->
     <div
       id="cover-screen"
-      class="fixed inset-0 z-50 flex flex-col items-center justify-center px-4 text-center bg-[length:100%] bg-[center_bottom_45%] transition-all duration-1000"
+      class="fixed inset-0 z-50 flex flex-col items-center justify-center px-4 text-center bg-[length:100%] bg-[center_bottom_45%] smooth-fade"
       style="
         background-image: linear-gradient(
             to bottom,
-            rgba(255, 255, 255, 0.164),
-            rgba(240, 249, 255, 0.658)
+            rgba(255, 255, 255, 0.2),
+            rgba(240, 249, 255, 0.7)
           ),
           url('WhatsApp Image 2026-10-05 at 23.36.02.jpeg');
       "
     >
       <div class="absolute inset-0 pointer-events-none overflow-hidden">
         <svg
-          class="absolute top-10 -left-10 w-72 h-36 opacity-30 animate-kumo-left fill-champagne"
+          class="absolute top-10 -left-10 w-72 h-36 animate-kumo-left fill-champagne"
           viewBox="0 0 100 50"
         >
           <path
@@ -252,7 +266,7 @@
           />
         </svg>
         <svg
-          class="absolute bottom-10 -right-10 w-80 h-40 opacity-25 animate-kumo-right fill-zoro-emerald"
+          class="absolute bottom-10 -right-10 w-80 h-40 animate-kumo-right fill-zoro-emerald"
           viewBox="0 0 100 50"
         >
           <path
@@ -262,7 +276,8 @@
       </div>
 
       <div
-        class="max-w-xl w-full p-8 md:p-12 glass-luxury rounded-3xl relative border-2 border-champagne shadow-2xl"
+        class="max-w-xl w-full p-8 md:p-12 glass-luxury rounded-3xl relative border-2 border-champagne shadow-2xl transition-all duration-700"
+        data-aos="fade-up"
       >
         <div
           class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white p-3 rounded-full border-2 border-champagne shadow-xl"
@@ -300,18 +315,12 @@
         <div
           class="mt-6 mb-2 flex justify-center items-center gap-3 text-champagne-dark"
         >
-          <i
-            class="fas fa-compass text-sm animate-spin"
-            style="animation-duration: 20s"
-          ></i>
+          <i class="fas fa-compass text-sm animate-logpose"></i>
           <span
             class="font-japanese tracking-[0.3em] text-xs uppercase text-zoro-emerald font-bold"
             >天命の航海 • CELESTIAL VOYAGE</span
           >
-          <i
-            class="fas fa-compass text-sm animate-spin"
-            style="animation-duration: 20s"
-          ></i>
+          <i class="fas fa-compass text-sm animate-logpose"></i>
         </div>
 
         <h1
@@ -335,7 +344,7 @@
         </div>
 
         <p
-          class="font-serifText text-slate-700 text-base sm:text-lg italic my-4"
+          class="font-serifText text-slate-700 text-base sm:text-lg italic my-4 leading-relaxed"
         >
           "Di bawah naungan langit cerah dan gelombang abadi, takdir menuntun
           dua jiwa berlabuh dalam satu cinta."
@@ -357,7 +366,7 @@
 
         <button
           onclick="openInvitation()"
-          class="slash-btn relative inline-flex items-center justify-center px-9 py-4 font-header font-bold text-white bg-gradient-to-r from-zoro-emerald via-champagne-dark to-zoro-emerald rounded-full shadow-xl hover:scale-105 transition-all duration-300 border border-champagne"
+          class="slash-btn relative inline-flex items-center justify-center px-9 py-4 font-header font-bold text-white bg-gradient-to-r from-zoro-emerald via-champagne-dark to-zoro-emerald rounded-full shadow-xl hover:scale-105 transition-all duration-500 border border-champagne"
         >
           <span
             class="flex items-center gap-3 text-xs tracking-widest uppercase"
@@ -376,7 +385,7 @@
         style="
           background-image: linear-gradient(
               to bottom,
-              rgba(240, 249, 255, 0.178),
+              rgba(240, 249, 255, 0.2),
               rgba(252, 251, 249, 1)
             ),
             url('https://images.unsplash.com/photo-1755548084494-92fa2b02d1c2?q=80&w=387&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
@@ -407,7 +416,7 @@
           </svg>
         </div>
 
-        <div class="max-w-4xl mx-auto space-y-6 relative z-10" data-aos="zoom-in-up" data-aos-duration="1200">
+        <div class="max-w-4xl mx-auto space-y-6 relative z-10" data-aos="fade-up" data-aos-duration="1400">
           <div
             class="inline-block p-4 rounded-full border-2 border-champagne bg-white/90 shadow-xl mb-2"
           >
@@ -444,7 +453,7 @@
           </div>
 
           <!-- COUNTDOWN TIMER -->
-          <div class="pt-8" data-aos="fade-up" data-aos-delay="300">
+          <div class="pt-8" data-aos="fade-up" data-aos-delay="200">
             <p
               class="font-header text-xs uppercase tracking-widest text-slate-500 mb-4 font-semibold"
             >
@@ -509,7 +518,7 @@
           <div class="pt-10">
             <a
               href="#quote-section"
-              class="animate-bounce inline-block text-champagne text-2xl hover:text-zoro-emerald transition"
+              class="animate-bounce inline-block text-champagne text-2xl hover:text-zoro-emerald transition-colors"
               aria-label="Scroll Down"
             >
               <i class="fas fa-chevron-down"></i>
@@ -523,7 +532,7 @@
         id="quote-section"
         class="py-20 px-4 bg-gradient-to-b from-cloud-cream via-white to-ocean-50/40 text-center relative border-t border-b border-champagne/30"
       >
-        <div class="max-w-3xl mx-auto space-y-5" data-aos="fade-up" data-aos-duration="1000">
+        <div class="max-w-3xl mx-auto space-y-5" data-aos="fade-up">
           <div class="text-champagne text-3xl">
             <i class="fas fa-quote-left"></i>
           </div>
@@ -546,7 +555,7 @@
       <!-- PROFIL MEMPELAI -->
       <section id="groom-bride" class="py-24 px-4 relative bg-cloud-cream">
         <div class="max-w-5xl mx-auto text-center">
-          <div class="mb-16" data-aos="fade-down">
+          <div class="mb-16" data-aos="fade-up">
             <span
               class="text-zoro-emerald font-japanese text-xs tracking-[0.3em] uppercase font-bold"
               >THE CAPTAINS OF VOYAGE</span
@@ -564,9 +573,9 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
             <!-- GROOM CARD -->
             <div
-              data-aos="flip-left"
-              data-aos-duration="1200"
-              class="glass-wanted rounded-3xl p-8 text-center max-w-sm mx-auto w-full transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden border-2 border-champagne"
+              data-aos="fade-up"
+              data-aos-delay="100"
+              class="glass-wanted rounded-3xl p-8 text-center max-w-sm mx-auto w-full hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden border-2 border-champagne"
             >
               <div class="border-b-2 border-champagne/40 pb-2 mb-6">
                 <span
@@ -623,9 +632,9 @@
 
             <!-- BRIDE CARD -->
             <div
-              data-aos="flip-right"
-              data-aos-duration="1200"
-              class="glass-wanted rounded-3xl p-8 text-center max-w-sm mx-auto w-full transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden border-2 border-champagne"
+              data-aos="fade-up"
+              data-aos-delay="250"
+              class="glass-wanted rounded-3xl p-8 text-center max-w-sm mx-auto w-full hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden border-2 border-champagne"
             >
               <div class="border-b-2 border-champagne/40 pb-2 mb-6">
                 <span
@@ -703,8 +712,8 @@
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <!-- AKAD NIKAH -->
             <div
-              data-aos="fade-right"
-              data-aos-duration="1000"
+              data-aos="fade-up"
+              data-aos-delay="100"
               class="glass-luxury rounded-3xl p-8 relative overflow-hidden group border-2 border-champagne/60 shadow-xl"
             >
               <div
@@ -739,8 +748,8 @@
 
             <!-- RESEPSI -->
             <div
-              data-aos="fade-left"
-              data-aos-duration="1000"
+              data-aos="fade-up"
+              data-aos-delay="250"
               class="glass-luxury rounded-3xl p-8 relative overflow-hidden group border-2 border-champagne/60 shadow-xl"
             >
               <div
@@ -775,7 +784,7 @@
           </div>
 
           <!-- Action Buttons -->
-          <div class="mt-12 flex flex-wrap justify-center gap-5" data-aos="zoom-in" data-aos-delay="200">
+          <div class="mt-12 flex flex-wrap justify-center gap-5" data-aos="fade-up" data-aos-delay="300">
             <a
               href="https://maps.app.goo.gl/5dwJmzeFjciANu3y7?g_st=aw"
               target="_blank"
@@ -814,7 +823,7 @@
           <div
             class="relative border-l-2 border-champagne/60 pl-6 ml-4 space-y-12"
           >
-            <div class="relative group" data-aos="fade-right" data-aos-delay="100">
+            <div class="relative group" data-aos="fade-up" data-aos-delay="100">
               <div
                 class="absolute -left-[37px] top-0 bg-zoro-emerald text-champagne-light rounded-full w-10 h-10 flex items-center justify-center font-bold text-xs shadow-lg border-2 border-champagne"
               >
@@ -836,7 +845,7 @@
               </div>
             </div>
 
-            <div class="relative group" data-aos="fade-right" data-aos-delay="200">
+            <div class="relative group" data-aos="fade-up" data-aos-delay="200">
               <div
                 class="absolute -left-[37px] top-0 bg-zoro-emerald text-champagne-light rounded-full w-10 h-10 flex items-center justify-center font-bold text-xs shadow-lg border-2 border-champagne"
               >
@@ -880,28 +889,41 @@
         document.getElementById('guest-name-display').innerText = guestName;
       }
 
-      // 2. Fungsi Buka Undangan
+      // Inisialisasi AOS Awal untuk Splash Screen
+      AOS.init({
+        duration: 1200,
+        easing: 'ease-out-cubic',
+        once: true
+      });
+
+      // 2. Fungsi Buka Undangan dengan Smooth Fade Transition
       function openInvitation() {
         const cover = document.getElementById('cover-screen');
         const main = document.getElementById('main-content');
         const musicToggle = document.getElementById('music-toggle');
         const bgMusic = document.getElementById('bg-music');
 
-        cover.classList.add('opacity-0');
+        // Pudar keluar splash screen secara halus
+        cover.style.opacity = '0';
+        cover.style.transform = 'scale(1.03)';
+        
         setTimeout(() => {
           cover.style.display = 'none';
           main.classList.remove('hidden');
-          setTimeout(() => main.classList.remove('opacity-0'), 50);
-          musicToggle.classList.remove('hidden');
           
-          // Inisialisasi AOS setelah konten utama muncul
-          AOS.init({
-            once: true,
-            duration: 1000,
-          });
+          // Fade in main content secara perlahan
+          setTimeout(() => {
+            main.classList.remove('opacity-0');
+            main.classList.add('opacity-100');
+            
+            // Refresh ulang AOS untuk mendeteksi elemen halaman utama
+            AOS.refresh();
+          }, 100);
+
+          musicToggle.classList.remove('hidden');
         }, 1000);
 
-        // Putar Musik
+        // Play Audio
         bgMusic.play().catch(e => console.log("Autoplay diblokir browser: ", e));
       }
 
