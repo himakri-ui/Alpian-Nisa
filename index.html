@@ -68,7 +68,7 @@
       };
     </script>
 
-    <!-- Custom Style Sheet (Optimized Animations) -->
+    <!-- Custom Style Sheet -->
     <style>
       body {
         background-color: #fcfbf9;
@@ -77,16 +77,9 @@
         overflow-x: hidden;
       }
 
-      /* Transitions Smooth & Cubic Bezier */
       * {
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-      }
-
-      .smooth-fade {
-        transition: opacity 1.2s cubic-bezier(0.16, 1, 0.3, 1), 
-                    transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        will-change: opacity, transform;
       }
 
       .wave-container {
@@ -246,7 +239,7 @@
     <!-- COVER / SPLASH SCREEN -->
     <div
       id="cover-screen"
-      class="fixed inset-0 z-50 flex flex-col items-center justify-center px-4 text-center bg-[length:100%] bg-[center_bottom_45%] smooth-fade"
+      class="fixed inset-0 z-50 flex flex-col items-center justify-center px-4 text-center bg-[length:100%] bg-[center_bottom_45%] transition-all duration-700 ease-in-out"
       style="
         background-image: linear-gradient(
             to bottom,
@@ -277,7 +270,6 @@
 
       <div
         class="max-w-xl w-full p-8 md:p-12 glass-luxury rounded-3xl relative border-2 border-champagne shadow-2xl transition-all duration-700"
-        data-aos="fade-up"
       >
         <div
           class="absolute -top-10 left-1/2 -translate-x-1/2 bg-white p-3 rounded-full border-2 border-champagne shadow-xl"
@@ -378,7 +370,7 @@
     </div>
 
     <!-- MAIN CONTENT CONTAINER -->
-    <main id="main-content" class="opacity-0 transition-opacity duration-1000 hidden">
+    <main id="main-content" class="hidden opacity-0 transition-opacity duration-1000">
       <!-- HERO SECTION -->
       <section
         class="min-h-screen relative flex items-center justify-center text-center px-4 py-24 bg-cover bg-center overflow-hidden"
@@ -416,7 +408,7 @@
           </svg>
         </div>
 
-        <div class="max-w-4xl mx-auto space-y-6 relative z-10" data-aos="fade-up" data-aos-duration="1400">
+        <div class="max-w-4xl mx-auto space-y-6 relative z-10" data-aos="fade-up" data-aos-duration="1200">
           <div
             class="inline-block p-4 rounded-full border-2 border-champagne bg-white/90 shadow-xl mb-2"
           >
@@ -453,7 +445,7 @@
           </div>
 
           <!-- COUNTDOWN TIMER -->
-          <div class="pt-8" data-aos="fade-up" data-aos-delay="200">
+          <div class="pt-8" data-aos="fade-up" data-aos-delay="150">
             <p
               class="font-header text-xs uppercase tracking-widest text-slate-500 mb-4 font-semibold"
             >
@@ -633,7 +625,7 @@
             <!-- BRIDE CARD -->
             <div
               data-aos="fade-up"
-              data-aos-delay="250"
+              data-aos-delay="200"
               class="glass-wanted rounded-3xl p-8 text-center max-w-sm mx-auto w-full hover:-translate-y-2 hover:shadow-2xl relative overflow-hidden border-2 border-champagne"
             >
               <div class="border-b-2 border-champagne/40 pb-2 mb-6">
@@ -749,7 +741,7 @@
             <!-- RESEPSI -->
             <div
               data-aos="fade-up"
-              data-aos-delay="250"
+              data-aos-delay="200"
               class="glass-luxury rounded-3xl p-8 relative overflow-hidden group border-2 border-champagne/60 shadow-xl"
             >
               <div
@@ -784,7 +776,7 @@
           </div>
 
           <!-- Action Buttons -->
-          <div class="mt-12 flex flex-wrap justify-center gap-5" data-aos="fade-up" data-aos-delay="300">
+          <div class="mt-12 flex flex-wrap justify-center gap-5" data-aos="fade-up" data-aos-delay="250">
             <a
               href="https://maps.app.goo.gl/5dwJmzeFjciANu3y7?g_st=aw"
               target="_blank"
@@ -882,49 +874,52 @@
     <!-- AOS Animation Script & Custom JS -->
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-      // 1. Ambil Nama Tamu dari URL Parameter (?to=Nama)
+      // 1. Ambil Nama Tamu dari URL Parameter
       const urlParams = new URLSearchParams(window.location.search);
       const guestName = urlParams.get('to');
       if (guestName) {
         document.getElementById('guest-name-display').innerText = guestName;
       }
 
-      // Inisialisasi AOS Awal untuk Splash Screen
-      AOS.init({
-        duration: 1200,
-        easing: 'ease-out-cubic',
-        once: true
-      });
-
-      // 2. Fungsi Buka Undangan dengan Smooth Fade Transition
+      // 2. Fungsi Buka Undangan (Fix Bug AOS Render)
       function openInvitation() {
         const cover = document.getElementById('cover-screen');
         const main = document.getElementById('main-content');
         const musicToggle = document.getElementById('music-toggle');
         const bgMusic = document.getElementById('bg-music');
 
-        // Pudar keluar splash screen secara halus
+        // Pudar keluar cover
         cover.style.opacity = '0';
-        cover.style.transform = 'scale(1.03)';
-        
+        cover.style.transform = 'scale(1.05)';
+
         setTimeout(() => {
           cover.style.display = 'none';
-          main.classList.remove('hidden');
           
-          // Fade in main content secara perlahan
-          setTimeout(() => {
+          // Tampilkan elemen main dulu
+          main.classList.remove('hidden');
+
+          // Berikan sedikit jeda sebelum menginisialisasi ulang AOS
+          requestAnimationFrame(() => {
             main.classList.remove('opacity-0');
             main.classList.add('opacity-100');
-            
-            // Refresh ulang AOS untuk mendeteksi elemen halaman utama
+
+            // Inisialisasi & Refresh AOS setelah elemen main sepenuhnya terpasang
+            AOS.init({
+              duration: 1000,
+              easing: 'ease-out-cubic',
+              once: true,
+              offset: 100
+            });
             AOS.refresh();
-          }, 100);
+          });
 
           musicToggle.classList.remove('hidden');
-        }, 1000);
+        }, 700);
 
         // Play Audio
-        bgMusic.play().catch(e => console.log("Autoplay diblokir browser: ", e));
+        if (bgMusic) {
+          bgMusic.play().catch(e => console.log("Autoplay diblokir browser: ", e));
+        }
       }
 
       // 3. Toggle Musik Audio
